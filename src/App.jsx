@@ -1,41 +1,38 @@
-import React, { useRef } from 'react';
-import emailjs from '@emailjs/browser';
+import React, {useState} from 'react';
 import "./index.css"
+import SendMe from "./SendMe.jsx";
 
-// npm install @emailjs/browser --save
 function App() {
 
-    const form = useRef();
+    let [form,setForm] = useState(<div className="mt-10 flex justify-center text-2xl font-serif">Contact me at - @parvezhossainme</div>)
+    let [name,setName] = useState(null)
+    let [pass,setPass] = useState(null)
 
-    const sendEmail = (e) => {
+    const showSend = (e) => {
         e.preventDefault();
-        // console.log(form.current);
-
-        emailjs.sendForm('parvezhossainme_Server', 'template_pdk1y1r', form.current, '_OgLmRLpUmANzds8j')
-            .then((result) => {
-                alert(result.text);
-                e.reload();
-                // console.log(result.text);
-            }, (error) => {
-                alert(error.text);
-                // console.log(error.text);
-            });
-    };
-
-    let tArea = "h-96 w-full bg-gray-50 text-blue-800 outline-0"
-    let tDiv = "ring-1 ring-purple-600 border-spacing-4 px-3 py-1 bg-gray-50"
-    let tSub = "px-5 py-1 border-4 border-purple-400 rounded-b-lg text-3xl text-purple-600 font-semibold bg-green-100"
+        if(name === "phme69" && pass === "vallagena"){
+            setForm(<SendMe />); // update with my jsx form
+        } else {
+            console.log(name + "  " + pass + " : " + "Does not match bcccccccccccccccc")
+        }
+    }
 
     return (
     <>
-        <form ref={form} onSubmit={sendEmail} className="h-screen px-5 py-3  space-y-1">
-            <div>
-                <div className={tDiv}>
-                    <textarea name="message" className={tArea} placeholder="Enter something..."/>
-                </div>
-            </div>
-            <button className={tSub} type='submit' > Submit </button>
-        </form>
+        <div className="mx-5 mt-3 flex flex-wrap justify-center  space-y-20">
+            <form className="w-full border p-1 border-green-500 grid grid-cols-1 grid-rows-3">
+                <label>
+                    <span className="text-purple-800 font-mono font-semibold">Username :</span>
+                    <input className="mx-5 outline-0" type="text" name="uname : " placeholder="your username..." onChange={(e) => setName(e.target.value)}/>
+                </label>
+                <label>
+                    <span className="text-purple-800 font-mono font-semibold">Password :</span>
+                    <input className="mx-5 outline-0" type="password" name="pass : " placeholder="your password..." onChange={(e) => setPass(e.target.value)} />
+                </label>
+                <button onClick={showSend}  className="text-purple-800 font-mono font-semibold ring-3 text-xl rounded-xl p-0.5 bg-green-400"> Login </button>
+            </form>
+           </div>
+        <h1>{form}</h1>
     </>
     )
 }
